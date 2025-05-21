@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
+
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -43,4 +46,13 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
+
+    implementation(libs.koin.android)
+
+    // Compose
+    implementation(libs.runtime)
+    implementation(libs.foundation)
+    implementation(libs.material)
+    implementation(libs.ui)
+    implementation(libs.components.resources)
 }
