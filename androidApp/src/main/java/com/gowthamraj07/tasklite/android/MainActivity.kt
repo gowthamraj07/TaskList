@@ -6,9 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.gowthamraj07.tasklite.Greeting
+import com.gowthamraj07.tasklite.repository.TaskRepository
+import com.gowthamraj07.tasklite.android.screen.ChecklistScreen
+import com.gowthamraj07.tasklite.viewmodel.TaskViewModel
+import org.koin.android.ext.android.get
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,22 +26,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingView(Greeting().greet())
+                    val viewModel = remember { TaskViewModel(get<TaskRepository>()) }
+                    val tasks by viewModel.tasks.collectAsState()
+
+                    ChecklistScreen(
+                        tasks = tasks,
+                        onAddTask = viewModel::addTask,
+                        onToggleTask = viewModel::toggleTask,
+                        onDeleteTask = viewModel::deleteTask
+                    )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
     }
 }
