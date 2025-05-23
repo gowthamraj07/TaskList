@@ -1,19 +1,16 @@
 package com.gowthamraj07.tasklite.android
 
+import ChecklistScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.gowthamraj07.tasklite.Greeting
 import com.gowthamraj07.tasklite.repository.TaskRepository
-import com.gowthamraj07.tasklite.android.screen.ChecklistScreen
 import com.gowthamraj07.tasklite.viewmodel.TaskViewModel
 import org.koin.android.ext.android.get
 
