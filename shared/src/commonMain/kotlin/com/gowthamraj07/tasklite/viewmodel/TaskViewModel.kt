@@ -4,9 +4,11 @@ import com.gowthamraj07.tasklite.model.Task
 import com.gowthamraj07.tasklite.repository.TaskRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class TaskViewModel(
     private val repository: TaskRepository
@@ -45,6 +47,14 @@ class TaskViewModel(
         viewModelScope.launch {
             repository.deleteTask(id)
             _tasks.value = repository.getTasks()
+        }
+    }
+
+    fun observeTasks(callback: (List<Task>) -> Unit) {
+        CoroutineScope(Dispatchers.Main).launch {
+            tasks.collect {
+                callback(it)
+            }
         }
     }
 }

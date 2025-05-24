@@ -5,14 +5,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.gowthamraj07.tasklite.repository.TaskRepository
 import com.gowthamraj07.tasklite.viewmodel.TaskViewModel
-import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val viewModel = remember { TaskViewModel(get<TaskRepository>()) }
+                    val viewModel by inject<TaskViewModel>()
                     val tasks by viewModel.tasks.collectAsState()
 
                     ChecklistScreen(
